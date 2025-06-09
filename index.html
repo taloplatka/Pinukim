@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>פינוקים Party</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #111;
+      font-family: sans-serif;
+    }
+
+    .toast {
+      position: absolute;
+      font-weight: bold;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeInOut 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function randomColor() {
+    return `hsl(${randomInt(0, 360)}, 70%, 60%)`;
+  }
+
+  function createToast() {
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = 'פינוקים';
+
+    const x = randomInt(0, window.innerWidth - 100);
+    const y = randomInt(0, window.innerHeight - 50);
+    const angle = randomInt(-45, 45);
+    const color = randomColor();
+    const size = randomInt(16, 48);
+
+    toast.style.left = `${x}px`;
+    toast.style.top = `${y}px`;
+    toast.style.transform = `rotate(${angle}deg)`;
+    toast.style.color = color;
+    toast.style.fontSize = `${size}px`;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 2000);
+  }
+
+  setInterval(() => {
+    const count = randomInt(1, 2);
+    for (let i = 0; i < count; i++) {
+      setTimeout(createToast, i * 300);
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
